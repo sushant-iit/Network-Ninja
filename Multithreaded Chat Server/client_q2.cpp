@@ -24,7 +24,7 @@ class Client{
 
 public:
 
-    Client(string server_address,int server_port){
+    bool constructNow(string server_address,int server_port){
         //Initialise the socket:
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -38,10 +38,12 @@ public:
         saddr.sin_family = AF_INET;
         saddr.sin_port = htons(server_port);
 
-        if(inet_pton(AF_INET, "127.0.0.1", &saddr.sin_addr)<=0){
+        if(inet_pton(AF_INET, &server_address[0], &saddr.sin_addr)<=0){
             cout << "Invalid Address"<< endl;
             exit(EXIT_FAILURE);
         }
+
+        return true;
     }
 
     void connectnow(){
@@ -102,7 +104,7 @@ public:
 };
 
 //Global controller variables:
-Client myclient = Client("127.0.0.1", PORT);
+Client myclient = Client();
 pthread_t recv_t, send_t;
 
 //Main client logic:
@@ -155,7 +157,19 @@ void exit_handler(int sig){
 
 
 
-int main(){
+int main(int argc, char** argv){
+
+    try{
+        string ip_address(argv[1]);
+
+        //Construct the client:
+        myclient.constructNow(ip_address, stoi(argv[2]));
+    }catch(exception e){
+        cout << "The correct format is:\n";
+        cout <<  "./client server_ip_address server_port\n";
+        exit(0);
+    }
+
 
     //Register signal handlers:
     signal(SIGINT, exit_handler); 

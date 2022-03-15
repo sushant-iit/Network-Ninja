@@ -1,4 +1,3 @@
-#define PORT 8083
 #define MAX_SIZE 20480
 #define ANSI_RED "\x1b[31m"
 #define ANSI_GREEN "\x1b[32m"
@@ -34,9 +33,10 @@ class Server{
     int  sockfd;
     struct sockaddr_in sin;
     int sin_len = sizeof(sin);
+    int port = 0;
 
 public:
-    Server(int server_port){
+    bool constructNow(int server_port){
 
         //Initialise the socket:
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -50,7 +50,7 @@ public:
         memset(&sin, '\0', sizeof(sin));
         sin.sin_family = AF_INET;
         sin.sin_addr.s_addr = htonl(INADDR_ANY);
-        sin.sin_port = htons(PORT);
+        sin.sin_port = htons(server_port);
 
         //Bind the socket to the local address:
         if( bind(sockfd,(sockaddr *)&sin, sizeof(sin)) < 0 ){
@@ -58,6 +58,9 @@ public:
             exit(EXIT_FAILURE);
         }
 
+        port = server_port;
+
+        return true;
     }
 
     void listenNow(){
@@ -67,7 +70,7 @@ public:
             exit(EXIT_FAILURE);
         }
 
-        cout << "Server Listening on port: " << PORT << endl;
+        cout << "Server Listening on port: " << port << endl;
     }
 
     int acceptNow(){
@@ -130,7 +133,7 @@ public:
 };
 
 //Global State Controllers Variable:
-Server myserver = Server(PORT);
+Server myserver = Server();
 queue <int> waitingClient;
 unordered_map <string, string> partnerClient;
 unordered_map <string, int> sock;
@@ -350,7 +353,17 @@ void exit_handler(int sig){
 
 //Main Functions:----------------------------------------------------------------------------------
 
-int main(){
+int main(int argc, char **argv){
+
+    try{
+        //Construct the server:
+        myserver.constructNow(stoi(argv[1]));
+        
+    }catch(exception e){
+        cout << "Please provide command in the following format:\n";
+        cout << "./server port\n";
+        exit(0);
+    }
 
     //Register signal handlers:
     signal(SIGINT, exit_handler); 
