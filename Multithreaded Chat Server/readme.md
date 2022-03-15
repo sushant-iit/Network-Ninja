@@ -3,31 +3,47 @@
 
 Using this application, multiple clients can talk to each other by connecting to the server and watch each others' statuses  - BUSY or FREE, and based on availability connect to the particular client.
 
+<div align="center"> 
+<img src="https://user-images.githubusercontent.com/59964272/158463392-314d9833-17de-4387-bcc7-b64ac536929b.gif" alt="Gif showing usage of this program" height="382px">
+</div>
+
 ## Usage
-1. Download server_q2.cpp and client_q2.cpp (this program should be compiled in all the PCs that want to talk.)
+1. Download server_q2.cpp and client_q2.cpp (client program should be compiled in all the PCs that want to talk.)
 2. Open terminal in that directory.
 3. Compile the server program using the command: \
     `g++ server_q2.cpp -o server -lpthread`
 4. Compile the client program using the command: \
     `g++ client_q2.cpp -o client -lpthread` \
-The client programs should be run at those computers which want to talk. The server and the client should be in the same network to chat.
+The client programs should be run at those computers which want to talk. The server and all the clients should be in the same network to chat.
 5. Run the server using command: \
-    `./server`
-6. Similary,  run the client on all the PCs that want to chat using command: \
-    `./client`
-7. Choose any user_name for one lcinet (all clients should have different names).
-8. Enter the following command to see which users are free: \
+    `./server port_number` \
+    For example: \
+     `./server 8083` \
+     You wil get message saying "Server started successfully".
+6. Open a new terminal on server computer and find the ip address of server computer using the command: \
+     `ifconfig` \
+     	<div align = "center">
+         <img src = "https://user-images.githubusercontent.com/59964272/158458097-ad34d2e1-3c56-4ee3-aa23-96d734064fa5.JPG" height=318 width=491>
+	</div>
+	Note the inet address (10.10.77.210) in this case.
+7. Similary,  run the client on all the PCs that want to chat using command: (they should be in the same subnet as server) \
+    `./client server_ip_address server_port` \
+    For example: \
+    `./client 10.10.77.210 8083`
+8. Choose any user_name for one client (all clients should have different names).
+9. Enter the following command to see which users are free: \
     `status`
-9. Then type the following command to connect to that user: \
+10. Repeat the same steps from 7 on other PCs to create more clients so that they can chat. 
+11. Then type the following command to connect to that user: \
     `connect <other_client_user_name>` \
 If you get the output: \
     `(server): You are now connected to <other_client_user_name>` \
 then you are now connected and can begin the chat.
-10. All the strings except command words will be sent to other user and can be received from other user.
-11. If you wish to close the active chat session with a user type: \
+12. All the strings except command words will be sent to other user and can be received from other user.
+13. If you wish to close the active chat session with a user type: \
     `goodbye`
-12. Go to step 8 if you want to talk to other users.
-13. To disconnect the client from the chat server, type: \
+14. Go to step 8 if you want to talk to other users.
+15. To disconnect the client from the chat server, type: \
     `close`
 
 ## Available commands and behaviours:
@@ -48,6 +64,8 @@ then you are now connected and can begin the chat.
 	<img src = "https://user-images.githubusercontent.com/59964272/156934697-e92d0d3b-6ddf-4a59-b1aa-665d85fe257f.JPG" height=318 width=491>
 </div>
 <br>
+
+## Developer
 **Sushant Kumar**
 	
 
