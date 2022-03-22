@@ -1,0 +1,41 @@
+Tue Mar 22 23:13:19 2022	Server started successfully...
+Tue Mar 22 23:13:34 2022	Client ID: 4 connected
+Tue Mar 22 23:14:33 2022	Client ID: 4 AuthReq: user1:pwd1:y
+Tue Mar 22 23:14:38 2022	Client ID: 4 ServiceReq: PUT
+Tue Mar 22 23:15:18 2022	Server started successfully...
+Tue Mar 22 23:15:41 2022	Client ID: 4 connected
+Tue Mar 22 23:15:49 2022	Client ID: 4 AuthReq: user1:pw1:y
+Tue Mar 22 23:15:53 2022	Client ID: 4 ServiceReq: PUT
+Tue Mar 22 23:17:01 2022	Client ID: 4 disconnected
+Tue Mar 22 23:17:11 2022	Client ID: 5 connected
+Tue Mar 22 23:17:22 2022	Client ID: 5 AuthReq: user2:pwd2:y
+Tue Mar 22 23:17:25 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:17:35 2022	Client ID: 5 ServiceReq: PUT
+Tue Mar 22 23:17:37 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:17:52 2022	Client ID: 5 ServiceReq: PUT
+Tue Mar 22 23:18:13 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:18:22 2022	Client ID: 5 ServiceReq: DEL
+Tue Mar 22 23:18:33 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:20:02 2022	Client ID: 5 disconnected
+Tue Mar 22 23:20:12 2022	Client ID: 4 connected
+Tue Mar 22 23:20:18 2022	Client ID: 4 AuthReq: user3:pwd2:y
+Tue Mar 22 23:20:25 2022	Client ID: 4 ServiceReq: LS
+Tue Mar 22 23:20:30 2022	Client ID: 4 ServiceReq: PUT
+Tue Mar 22 23:20:32 2022	Client ID: 4 ServiceReq: LS
+Tue Mar 22 23:20:39 2022	Client ID: 4 ServiceReq: PUT
+Tue Mar 22 23:20:41 2022	Client ID: 4 ServiceReq: LS
+Tue Mar 22 23:20:49 2022	Client ID: 4 ServiceReq: DEL
+Tue Mar 22 23:20:50 2022	Client ID: 4 ServiceReq: LS
+Tue Mar 22 23:20:55 2022	Client ID: 4 disconnected
+Tue Mar 22 23:20:57 2022	Client ID: 5 connected
+Tue Mar 22 23:21:04 2022	Client ID: 5 AuthReq: user3:pwd2:n
+Tue Mar 22 23:21:06 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:21:12 2022	Client ID: 5 ServiceReq: GET
+Tue Mar 22 23:21:13 2022	Client ID: 5 File Sent successfully...
+Tue Mar 22 23:21:15 2022	Client ID: 5 ServiceReq: LS
+Tue Mar 22 23:21:20 2022	Client ID: 5 disconnected
+Tue Mar 22 23:24:01 2022	Shutting down the server...
+Saving the data...
+Wed Mar 23 00:01:38 2022	Server started successfully...
+Wed Mar 23 00:10:20 2022	Shutting down the server...
+Saving the data...

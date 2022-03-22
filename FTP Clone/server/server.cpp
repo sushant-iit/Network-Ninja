@@ -224,7 +224,6 @@ public:
     void recvFile(int client_socket, string dest_path){
         //Get the mode name:
         string mode = readMsg(client_socket);
-        cout << mode << endl;
         if(mode.compare("-a")==0)
             sendMsg(client_socket, "(server): Transferring in ascii mode\n");
         else
@@ -531,6 +530,9 @@ int main(int argc, char **argv){
     signal(SIGINT, exit_handler); 
 
     myserver.listenNow();
+    cout << getTimestamp() << "Server started successfully..." << endl; 
+    cout << "All the server events are stored in ./meta-data/logs.txt\nPlease use that for debugging purposes\n";
+    freopen("./meta-data/logs.txt","a",stdout);
     cout << getTimestamp() << "Server started successfully..." << endl; 
 
     //Accept connections in infinite loop
