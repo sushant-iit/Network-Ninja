@@ -3,6 +3,10 @@
 
 Using this application, multiple clients can push their files to the ftp server in their respected allocated personal spaces, download them as and when needed. They can also delete their personal files from the server.
 
+<div align="center"> 
+<img src="https://user-images.githubusercontent.com/59964272/159552334-0e348a9c-16f3-425b-957d-3133091206df.gif" height="382px">
+</div>
+
 ## Directory Structure:
 When server program is run the following directory structure is automatically created as and when needed: \
 ```
