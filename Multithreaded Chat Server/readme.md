@@ -1,10 +1,15 @@
-# Multithreaded Chat Server
+# Multithreaded Chat Server with Encryption
 ## Allows multiple clients to tallk to each other
 
 Using this application, multiple clients can talk to each other by connecting to the server and watch each others' statuses  - BUSY or FREE, and based on availability connect to the particular client.
 
+
+**Update:** \
+Now, the clients can also encrypt their messages using RC4 encryption to send messages securely. On the connection set up, a key is shared between client pairs using **Diffie-Hellman-Key-Exchange** (key range can be increased in the code by altering public key n and g, for testing purposes they are kept small). \
+The common key established is then used for **RC4 Encryption**.
+
 <div align="center"> 
-<img src="https://user-images.githubusercontent.com/59964272/158463392-314d9833-17de-4387-bcc7-b64ac536929b.gif" alt="Gif showing usage of this program" height="382px">
+<img src="https://user-images.githubusercontent.com/59964272/197150754-28475938-8dde-4055-9ec7-0c4637e352c7.gif" alt="Gif showing usage of this program">
 </div>
 
 ## Usage
@@ -39,7 +44,9 @@ The client programs should be run at those computers which want to talk. The ser
 If you get the output: \
     `(server): You are now connected to <other_client_user_name>` \
 then you are now connected and can begin the chat.
-12. All the strings except command words will be sent to other user and can be received from other user.
+12. All the strings except command words will be sent to other user and can be received from other user. \
+**Note:** To send messages securely (in encrypted format), preprend message with: \
+`secure: <message>` *(secure followed by colon followed by space)* 
 13. If you wish to close the active chat session with a user type: \
     `goodbye`
 14. Go to step 8 if you want to talk to other users.
@@ -54,6 +61,8 @@ then you are now connected and can begin the chat.
 	4. close                : Disconnects you from the server
 	5. Ctrl+C (client side) : Ends current chatting session (if present) and disconnects and terminates the client.
 	6. Ctrl+C (server side) : Ends all the chatting sessions and disconnects all the clients and terminates the server.
+	
+**Note:** In the active chat session, any text except the above are treated as normal message. If you want to send encrypted messages, prepend message with *secure: \<message\>*
 
 <div align = "center">
 	<img src = "https://user-images.githubusercontent.com/59964272/156934296-32dc27bd-ac2c-48d0-8d8d-752726ec65d6.JPG" height=318 width=491>
