@@ -20,16 +20,16 @@
 #include <signal.h> 
 #include <vector>
 #include <climits>
+#include "crypto.hpp"
 
 using namespace std;
 
 //Diffie-Hellman Parameters:
 const int n = 1999, g = 1777;
 int x, key;
-string keyString;
 
 int pow2mod(int number, int power, int mod);
-string preProcessMessage(string msgRead);
+string preProcessMessage(string msgRead, bool isMsgRead = false);
 void postProcessSpecialCommands(string msgRead);
 vector <string> splitWord(string &s, char delimiter);
 
@@ -127,7 +127,7 @@ pthread_t recv_t, send_t;
 void* receiveMsg(void *arg){
     while(true){
         string msgRead = myclient.readMsg();
-        msgRead = preProcessMessage(msgRead);
+        msgRead = preProcessMessage(msgRead, true);
         cout << msgRead << endl;
         postProcessSpecialCommands(msgRead);
     }
@@ -137,6 +137,7 @@ void* sendMsg(void *arg){
     while(true){
         string msg;
         getline(cin, msg);
+        msg = preProcessMessage(msg);
         myclient.sendMsg(msg);
         postProcessSpecialCommands(msg);
     }
@@ -157,7 +158,7 @@ void postProcessSpecialCommands(string msgRead){
     }
 }
 
-string preProcessMessage(string msgRead){
+string preProcessMessage(string msgRead, bool isMsgRead){
     vector<string> parsedCommand = splitWord(msgRead, ' ');
     if(parsedCommand.size() > 0 && parsedCommand[0].compare("key_param")==0){
         if(parsedCommand.size() < 3){
@@ -172,6 +173,30 @@ string preProcessMessage(string msgRead){
         successMsg += "\t(server): Diffie-Hellman-Key-Exchange Success, Key: " + to_string(key);
         successMsg += ANSI_RESET;
         return successMsg;
+    }
+    //Encrypting or Decrypting the message:
+    if((parsedCommand.size() > 0 && parsedCommand[0].compare("secure:")==0 )||
+        (parsedCommand.size() > 1 && parsedCommand[1].compare("secure:")==0)){
+        string sender;
+        int i = 0;
+        while(i < msgRead.length() && msgRead[i]!=':') i++;
+        i++;
+        if(isMsgRead){
+            //Skipping the first colon:
+            sender = msgRead.substr(0, i);
+            while(i < msgRead.length() && msgRead[i]!=':') i++;
+            i++;
+        }
+        string msgToBeEncryptedDecrytped;
+        if(i+1 < msgRead.length())
+            msgToBeEncryptedDecrytped += msgRead.substr(i+1);
+        string  encryptedDecryptedText = encrypt_decrypt(msgToBeEncryptedDecrytped, to_string(key));
+        string finalMessage;
+        if(isMsgRead)
+            finalMessage = sender + " secure: " + msgToBeEncryptedDecrytped + " [" + encryptedDecryptedText + "]";
+        else
+            finalMessage = "secure: " + encryptedDecryptedText;
+        return finalMessage;
     }
     return msgRead;
 }
