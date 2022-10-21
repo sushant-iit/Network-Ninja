@@ -59,8 +59,10 @@ then you are now connected and can begin the chat.
 	2. connect <username>   : Connect to username and start chatting
 	3. goodbye              : Ends current chatting session
 	4. close                : Disconnects you from the server
-	5. Ctrl+C (client side) : Ends current chatting session (if present) and disconnects and terminates the client.
-	6. Ctrl+C (server side) : Ends all the chatting sessions and disconnects all the clients and terminates the server.
+	5. <message>            : Sends the message to other client in plain text format.
+	6. secure: <message>    : Sends the message in secure format to other client.
+	7. Ctrl+C (client side) : Ends current chatting session (if present) and disconnects and terminates the client.
+	8. Ctrl+C (server side) : Ends all the chatting sessions and disconnects all the clients and terminates the server.
 	
 **Note:** In the active chat session, any text except the above are treated as normal message. If you want to send encrypted messages, prepend message with *secure: \<message\>*
 
