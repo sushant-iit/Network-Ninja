@@ -331,6 +331,8 @@ string getGeneralInstructions(string my_client_name){
     msg += "\t2. connect <username> : Connect to username and start chatting\n";
     msg += "\t3. goodbye            : Ends current chatting session\n";
     msg += "\t4. close              : Disconnects you from the server\n";
+    msg += "\t5. <message>          : Sends the message to other client in plain text format.\n";
+    msg += "\t6. secure: <message>  : Sends the message in secure format to other client.\n";
     msg += ANSI_RESET;
     return msg;
 }
