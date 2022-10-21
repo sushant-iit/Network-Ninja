@@ -1,6 +1,14 @@
 #define PORT 8083
 #define MAX_SIZE 20480
 
+#define ANSI_RED "\x1b[31m"
+#define ANSI_GREEN "\x1b[32m"
+#define ANSI_YELLOW "\x1b[33m"
+#define ANSI_BLUE "\x1b[34m"
+#define ANSI_MAGENTA "\x1b[35m"
+#define ANSI_CYAN "\x1b[36m"
+#define ANSI_RESET "\x1b[0m"
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -11,10 +19,18 @@
 #include <pthread.h>
 #include <signal.h> 
 #include <vector>
+#include <climits>
 
 using namespace std;
 
-void processSpecialCommands(string msgRead);
+//Diffie-Hellman Parameters:
+const int n = 1999, g = 1777;
+int x, key;
+string keyString;
+
+int pow2mod(int number, int power, int mod);
+string preProcessMessage(string msgRead);
+void postProcessSpecialCommands(string msgRead);
 vector <string> splitWord(string &s, char delimiter);
 
 // This class implemented by me proivdes me a high level interface to network as a client:
@@ -111,8 +127,9 @@ pthread_t recv_t, send_t;
 void* receiveMsg(void *arg){
     while(true){
         string msgRead = myclient.readMsg();
+        msgRead = preProcessMessage(msgRead);
         cout << msgRead << endl;
-        processSpecialCommands(msgRead);
+        postProcessSpecialCommands(msgRead);
     }
 }
 
@@ -121,15 +138,42 @@ void* sendMsg(void *arg){
         string msg;
         getline(cin, msg);
         myclient.sendMsg(msg);
-        processSpecialCommands(msg);
+        postProcessSpecialCommands(msg);
     }
 }
 
 //Helper Functions:
-void processSpecialCommands(string msgRead){
+void postProcessSpecialCommands(string msgRead){
     vector<string> parsedCommand = splitWord(msgRead, ' ');
     if(parsedCommand.size()>0 && (parsedCommand[0].compare("close")==0 || parsedCommand[0].compare("\x1b[31mClose:")==0))
         exit(0);
+    if(parsedCommand.size()>1 && parsedCommand[1].compare("GEN_KEYS")==0){
+        long long seed = (long long)&parsedCommand[0];
+        seed = seed%INT_MAX + time(0)%INT_MAX;
+        srand(seed);
+        x = rand()%n;
+        int A = pow2mod(g, x, n);
+        myclient.sendMsg("key_exchange "+to_string(A));
+    }
+}
+
+string preProcessMessage(string msgRead){
+    vector<string> parsedCommand = splitWord(msgRead, ' ');
+    if(parsedCommand.size() > 0 && parsedCommand[0].compare("key_param")==0){
+        if(parsedCommand.size() < 3){
+            string errMsg = ANSI_RED;
+            errMsg += "Error! Key could not be retrieved\n";
+            errMsg += ANSI_RESET;
+            cout << errMsg;
+        }
+        int B = stoi(parsedCommand[1]);
+        key = pow2mod(B, x, n);
+        string successMsg = ANSI_GREEN;
+        successMsg += "\t(server): Diffie-Hellman-Key-Exchange Success, Key: " + to_string(key);
+        successMsg += ANSI_RESET;
+        return successMsg;
+    }
+    return msgRead;
 }
 
 //Utility Functions:
@@ -145,6 +189,15 @@ vector <string> splitWord(string &s, char delimiter){
     }
     res.push_back(curr);
     return res;
+}
+
+int pow2mod(int number, int power, int mod){
+    if(power==0) return 1;
+    int x = pow2mod(number, power/2, mod);
+    x = 1LL * x * x % mod;
+    if(power&1)
+        x = 1LL * x * number % mod;
+    return x;
 }
 
 

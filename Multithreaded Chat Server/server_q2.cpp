@@ -180,6 +180,16 @@ void* handleClient(void *arg){
         else if(parsedMsg[0].compare("close")==0){
             closeTheSession(client_name);
             break;
+        }else if(parsedMsg[0].compare("key_exchange")==0){
+            usleep(1000);   //Waiting 1ms for tcp to flush ...
+            if(parsedMsg.size() < 1){
+                string errMsg = ANSI_RED;
+                errMsg += "Key Exchange Error: Param Not Found";
+                errMsg += ANSI_RESET;
+                myserver.sendMsg(sock[partnerClient[client_name]], errMsg);
+            }
+            string keyExchangeMsg = "key_param "+parsedMsg[1] + " "+ partnerClient[client_name];
+            myserver.sendMsg(sock[partnerClient[client_name]], keyExchangeMsg);
         }
         //If this client is already connected to some client then send the read message to that client:
         else if(partnerClient.find(client_name)!=partnerClient.end() ){
@@ -275,11 +285,11 @@ bool connectToOtherClient(string my_client_name ,vector <string> parsedMsg){
 
     cout <<ANSI_GREEN << "Connected: "+my_client_name<< " and "<<otherClientName << ANSI_RESET << endl;
 
-    //Notify the clients that they are now connected:
-    string successMsg = ANSI_GREEN;
-    successMsg += "\t(server): You are now connected to ";
-    myserver.sendMsg(sock[otherClientName], successMsg+my_client_name+ANSI_RESET);
-    myserver.sendMsg(sock[my_client_name], successMsg + otherClientName+ANSI_RESET);
+    //Ask the clients to generate keys for communication:
+    string keyReqMsg = ANSI_YELLOW;
+    keyReqMsg += "\n\t(Server): GEN_KEYS ";
+    myserver.sendMsg(sock[otherClientName], keyReqMsg + ANSI_RESET);
+    myserver.sendMsg(sock[my_client_name], keyReqMsg + ANSI_RESET);
     return true;
 }
 
