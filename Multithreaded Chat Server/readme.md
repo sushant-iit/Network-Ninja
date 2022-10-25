@@ -66,6 +66,22 @@ then you are now connected and can begin the chat.
 	
 **Note:** In the active chat session, any text except the above are treated as normal message. If you want to send encrypted messages, prepend message with *secure: \<message\>*
 
+
+## Diffie-Hellman-Key-Exchange Process
+To perform the handshake the following protocol is used:
+1. Here, the public keys n (=1999) and g (=1777) is fixed and known to both the clients.
+2. Client1 sends connection request for client2 to the server.
+3. Server on successful connection sends GEN_KEYS to both the clients.
+4. Both the clients generate private key x (say client1), y (say client2) using random generator and send A = g<sup>x</sup>mod n, B = g <sup>y</sup>mod n to the server. The server then forwards A and B to the partner clients using key_param message. \
+*Client1 gets B and client2 gets A after this step.*
+5. On receiving key_param message, both the clients set their keys. Client1 computes key=B<sup>x</sup>mod n = (g <sup>y</sup>)<sup>x</sup> mod n and client2 computes key using key = A<sup>y</sup> mod n = (g<sup>x</sup>)<sup>y</sup> mod n.
+
+Hence, a common key is established between them.
+
+**Note:** In the code, there are no x and y.. Code is written in symmetric way. Both the clients refer their keys as x only (They are different variables in different computers).
+
+**Note:** In our code, whenever there is a change in connection, say you disconnect and reconnect, a new common key is established.
+
 <div align = "center">
 	<img src = "https://user-images.githubusercontent.com/59964272/197687852-23d83c0c-0eee-4397-8818-91b7b2d7f698.JPG" height=318 width=491>
 	<img src = "https://user-images.githubusercontent.com/59964272/197687890-e6d72950-9639-4f48-b4d9-5be9869dd54b.JPG" height=318 width=491>
@@ -75,6 +91,7 @@ then you are now connected and can begin the chat.
 	<img src = "https://user-images.githubusercontent.com/59964272/197688146-40c05d57-8f3d-4a2a-84c5-77aa1f1b433f.JPG" height=318 width=491>
 </div>
 <br>
+
 
 ## Developer
 **Sushant Kumar**
