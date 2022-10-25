@@ -67,12 +67,12 @@ then you are now connected and can begin the chat.
 **Note:** In the active chat session, any text except the above are treated as normal message. If you want to send encrypted messages, prepend message with *secure: \<message\>*
 
 <div align = "center">
-	<img src = "https://user-images.githubusercontent.com/59964272/156934296-32dc27bd-ac2c-48d0-8d8d-752726ec65d6.JPG" height=318 width=491>
-	<img src = "https://user-images.githubusercontent.com/59964272/156934314-0be63b5b-2e43-4e97-bdcd-266ea9b5ba65.JPG" height=318 width=491>
-	<img src = "https://user-images.githubusercontent.com/59964272/156934355-4fca18fd-295e-47b0-b4e4-30d6b68faf57.JPG" height=318 width=491>
-	<img src = "https://user-images.githubusercontent.com/59964272/156934361-3023b150-273d-41a8-9459-9f24bfaf66d4.JPG" height=318 width=491>
-	<img src = "https://user-images.githubusercontent.com/59964272/156934371-849e3b00-faba-46a7-ad00-cff049d11718.JPG" height=318 width=491>
-	<img src = "https://user-images.githubusercontent.com/59964272/156934697-e92d0d3b-6ddf-4a59-b1aa-665d85fe257f.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197687852-23d83c0c-0eee-4397-8818-91b7b2d7f698.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197687890-e6d72950-9639-4f48-b4d9-5be9869dd54b.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197687991-6ffa053e-4f77-4255-80cc-a4d1f4871b82.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197688036-19907f63-8aa3-4c8b-8cd6-6185b253cc88.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197688099-a65f9a76-0ef8-4777-90b4-05b2fb56f437.JPG" height=318 width=491>
+	<img src = "https://user-images.githubusercontent.com/59964272/197688146-40c05d57-8f3d-4a2a-84c5-77aa1f1b433f.JPG" height=318 width=491>
 </div>
 <br>
 
