@@ -9,7 +9,8 @@ Now, the clients can also encrypt their messages using RC4 encryption to send me
 The common key established is then used for **RC4 Encryption**.
 
 <div align="center"> 
-<img src="https://user-images.githubusercontent.com/59964272/197150754-28475938-8dde-4055-9ec7-0c4637e352c7.gif" alt="Gif showing usage of this program">
+
+<img src="https://user-images.githubusercontent.com/59964272/199480660-b46ab67d-d64b-4385-bef6-6a1d940ae03d.gif" alt="Gif showing usage of this program">
 </div>
 
 ## Usage
